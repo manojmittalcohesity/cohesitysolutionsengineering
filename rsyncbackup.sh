@@ -1,6 +1,7 @@
 # Author: Manoj K Mittal
 # This script is for use with Cohesity Remote adapter to backup any unix based system to Cohesity NFS view.
-# Please take a look at instructions on how to use this script with Cohesity remote adapter
+# Please take a look at "https://github.com/manojmittalcohesity/cohesitysolutionsengineering/blob/main/RSYNC%20-%20Backup%20and%20Recovery%20using%20RA.pdf"
+# on how to use this script with Cohesity remote adapter
 #!/bin/sh
 #set -e
 while getopts ":V:P:I:S:E:" opt
