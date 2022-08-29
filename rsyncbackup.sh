@@ -117,6 +117,9 @@ fi
 
 #/usr/local/bin/sudo -s <<EOF 
 
+#Unmount before attempting mount
+$sudopath $umountpath -f $MOUNT_PATH
+
 $sudopath $mountpath -F nfs -o proto=tcp,vers=3 $MOUNT_IP:/$MOUNT_VIEW $MOUNT_PATH
 if [ "$?" != "0" ]; then
 echo =======================
@@ -147,6 +150,7 @@ echo =======================
 echo "Rsync command failed, please check error and try again"
 echo ========================
 rm -f /tmp/rsyncexcludescriptgenerated
+$sudopath $umountpath -f $MOUNT_PATH
 exit $rsyncstatus
 else
 echo ======================
