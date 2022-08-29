@@ -135,12 +135,19 @@ cat $EXCLUDE_FILE > /tmp/rsyncexcludescriptgenerated
 df -F nfs | awk '{print $1}' >> /tmp/rsyncexcludescriptgenerated
 
 $sudopath $rsyncpath -a  --stats --human-readable --delete --relative --no-whole-file --out-format="%t %f %b" --exclude=$MOUNT_PATH --exclude-from=/tmp/rsyncexcludescriptgenerated $RSYNC_SOURCE $MOUNT_PATH
-if [ "$?" != "0" ]; then
+rsyncstatus=$?
+echo $rsyncstatus > /tmp/rsyncstatus.txt
+if [ "$rsyncstatus" = "24" ]; then
+echo =======================
+echo "Rsync command was partially successful, please check error and fix issues if any, proceeding to unmount cohesity view "
+echo ========================
+rm -f /tmp/rsyncexcludescriptgenerated
+elsif [ "$rsyncstatus" != "0" ]; then
 echo =======================
 echo "Rsync command failed, please check error and try again"
 echo ========================
 rm -f /tmp/rsyncexcludescriptgenerated
-exit 1
+exit $rsyncstatus
 else
 echo ======================
 echo "Rsync backup completed successfully, proceeding to unmount cohesity view"
