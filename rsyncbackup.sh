@@ -145,7 +145,7 @@ echo =======================
 echo "Rsync command was partially successful, please check error and fix issues if any, proceeding to unmount cohesity view "
 echo ========================
 rm -f /tmp/rsyncexcludescriptgenerated
-elsif [ "$rsyncstatus" != "0" ]; then
+elif [ "$rsyncstatus" != "0" ]; then
 echo =======================
 echo "Rsync command failed, please check error and try again"
 echo ========================
